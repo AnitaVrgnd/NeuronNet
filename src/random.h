@@ -17,7 +17,7 @@ public:
   A seed *s>0* can be provided, by default it is seeded with a *random_device*.
  */
 ///@{
-    RandomNumbers(unsigned long int s=0);
+    RandomNumbers(unsigned long int s=0); 
 ///@}
 
 /*! @name Distributions
@@ -28,10 +28,12 @@ public:
   The additional parameters are the standard parameters of these distributions.
  */
 ///@{
-    void uniform_double(std::vector<double>&, double lower=0, double upper=1);
+	void initialize(double m, double s, int ns, bool norm); 
+	std::vector<double> generate_numbers(); 
+    void uniform_double(std::vector<double>&, double lower=0, double upper=1); 
     double uniform_double(double lower=0, double upper=1);
-    void normal(std::vector<double>&, double mean=0, double sd=1);
-    double normal(double mean=0, double sd=1);
+    void normal(std::vector<double>&res, double mean=0, double sd=1); 
+    double normal(double mean=0, double sd=1); 
     void poisson(std::vector<int>&, double mean=1);
     int poisson(double mean=1);
 ///@}
@@ -39,10 +41,14 @@ public:
   This takes a vector of indices and re-orders it randomly.
  */
 ///@{
-    void shuffle(std::vector<size_t> &_v) {std::shuffle(_v.begin(), _v.end(), rng);}
+    void shuffle(std::vector<size_t> &_v) {std::shuffle(_v.begin(), _v.end(), rng); };  
 ///@}
      
 private:
+	double mean;
+	double sd;
+	int nsample;
+	bool isnormal;
     std::mt19937 rng;
     long int seed;
 
